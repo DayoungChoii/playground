@@ -1,7 +1,9 @@
 package dev.playground.service.rules
 
 import dev.playground.domain.Finance
+import org.springframework.stereotype.Component
 
+@Component
 class GapChaseGuardRule: SignalRule {
     override fun evaluate(ctx: SignalCtx): RuleCheckResult {
         val gapOk = Math.abs(Finance.pctChange(ctx.prevClose, ctx.close)) <= GAP_LIMIT

@@ -1,5 +1,8 @@
 package dev.playground.service.rules
 
+import org.springframework.stereotype.Component
+
+@Component
 class VolatilityGuardRule: SignalRule {
     override fun evaluate(ctx: SignalCtx): RuleCheckResult {
         val volatilityOk = (ctx.atr14 != null && ctx.atr14 / ctx.close <= VOLATILITY_MAX)

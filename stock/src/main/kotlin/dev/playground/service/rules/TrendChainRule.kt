@@ -1,7 +1,9 @@
 package dev.playground.service.rules
 
 import dev.playground.domain.Indicators
+import org.springframework.stereotype.Component
 
+@Component
 class TrendChainRule : SignalRule{
     override fun evaluate(ctx: SignalCtx): RuleCheckResult {
         val trendOk = (ctx.sma5 != null && ctx.sma20 != null && ctx.sma60 != null &&

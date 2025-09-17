@@ -1,7 +1,9 @@
 package dev.playground.service.rules
 
 import dev.playground.domain.Indicators
+import org.springframework.stereotype.Component
 
+@Component
 class RsiBandOrCrossRule : SignalRule{
     override fun evaluate(ctx: SignalCtx): RuleCheckResult {
         val rsiOk =
