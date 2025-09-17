@@ -16,17 +16,8 @@ data class Candle(
 enum class Decision { BUY, HOLD }
 
 data class SignalResponse(
-    val code: String,
-    val date: String,
-    val close: Double,
-    val sma5: Double?,
-    val sma20: Double?,
-    val sma60: Double?,
-    val rsi14: Double?,
-    val kospiSma50: Double?,
-    val kospiSma200: Double?,
     val decision: Decision,
-    val reasons: List<String>
+    val messages: List<String>
 )
 
 object DateFmt {
