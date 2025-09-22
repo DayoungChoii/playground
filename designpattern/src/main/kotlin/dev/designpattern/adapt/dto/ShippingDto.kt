@@ -1,15 +1,16 @@
 package dev.designpattern.adapt.dto
 
 import com.fasterxml.jackson.annotation.JsonProperty
+import dev.designpattern.adapt.common.CarrierType
 
 data class QuoteRequest(
-    val carrier: String,
+    val carrierType: CarrierType,
     val weightKg: Double,
     val destination: String
 )
 
 data class QuoteResponse(
-    val provider: String,
+    val provider: CarrierType,
     val totalCost: Long,
     val currency: String,
     val estimatedDays: Int?

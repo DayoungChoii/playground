@@ -1,5 +1,6 @@
 package dev.designpattern.adapt.service
 
+import dev.designpattern.adapt.common.CarrierType.*
 import dev.designpattern.adapt.dto.*
 import org.springframework.http.HttpEntity
 import org.springframework.http.HttpHeaders
@@ -11,7 +12,7 @@ import org.springframework.web.util.UriComponentsBuilder
 import java.net.URI
 
 @Service
-class SignalService(
+class ShippingService(
 
 ) {
     private val rt = RestTemplate()
@@ -20,12 +21,9 @@ class SignalService(
 
     fun estimateQuote(request: QuoteRequest): ResponseEntity<Any> {
         return try {
-            when (request.carrier.uppercase()) {
-                "SHIPFAST" -> shipFastQuote(request)
-                "QUICKSHIP" -> quickShipQuote(request)
-                else -> ResponseEntity.badRequest().body(
-                    mapOf("error" to "unsupported carrier: ${request.carrier}")
-                )
+            when (request.carrierType) {
+                SHIP_FAST -> shipFastQuote(request)
+                QUICK_SHIP -> quickShipQuote(request)
             }
         } catch (e: Exception) {
             ResponseEntity.status(502).body(mapOf("error" to (e.message ?: "upstream error")))
@@ -42,7 +40,7 @@ class SignalService(
             ?: return ResponseEntity.status(502).body(mapOf("error" to "empty response"))
 
         val out = QuoteResponse(
-            provider = "SHIPFAST",
+            provider = SHIP_FAST,
             totalCost = resp.rate,
             currency = resp.currency,
             estimatedDays = resp.etaDays
@@ -63,7 +61,7 @@ class SignalService(
             ?: return ResponseEntity.status(502).body(mapOf("error" to "empty response"))
 
         val out = QuoteResponse(
-            provider = "QUICKSHIP",
+            provider = QUICK_SHIP,
             totalCost = resp.amount.value,
             currency = resp.amount.unit,
             estimatedDays = resp.details.estDays
