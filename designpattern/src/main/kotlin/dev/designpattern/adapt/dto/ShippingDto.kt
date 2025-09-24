@@ -1,7 +1,6 @@
 package dev.designpattern.adapt.dto
 
 import com.fasterxml.jackson.annotation.JsonProperty
-import dev.designpattern.adapt.common.CarrierType
 
 data class QuoteRequest(
     val carrierType: CarrierType,
